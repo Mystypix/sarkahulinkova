@@ -1,0 +1,58 @@
+---
+import RichTextRenderer from '@caisy/rich-text-astro-renderer';
+import { gql, GraphQLClient } from 'graphql-request';
+import Layout from "../layouts/Layout.astro";
+import Hero from '../components/Hero.astro'
+import TherapyTile from '../components/tilles/TherapyTile.astro';
+import YogaTile from '../components/tilles/YogaTile.astro';
+import MinimalismTile from '../components/tilles/MinimalismTile.astro';
+
+const client = new GraphQLClient(
+	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
+	{
+		headers: {
+			'x-caisy-apikey': import.meta.env.CAISY_API_KEY
+		}
+	}
+);
+const gqlResponse = await client.request(
+	gql`
+		query home {
+			Home {
+				introText {
+					json
+				}
+				mainTitle {
+					json
+				}
+				minimalismTitle
+				therapyTitle
+				yogaTitle
+			}
+		}
+	`,
+);
+
+const {introText, mainTitle, minimalismTitle, therapyTitle, yogaTitle, } = gqlResponse?.Home
+---
+
+<Layout title='Uvod'>
+	<Hero background='bg-intro.jpg' subTitle={mainTitle} title='Šárka Hulinková' />
+	<section class="flex items-center justify-center h-[300px] mb-14">
+		<RichTextRenderer node={introText.json} />
+	</section>
+	<section class="flex justify-center pt-[156px]">
+		<div class="relative h-[312px] w-[360px] -mt-[156px]">
+			<TherapyTile transition:name="therapy" />
+			<h3 class="absolute bottom-10">{therapyTitle}</h3>
+		</div>
+		<div class="relative h-[312px] w-[360px] -ml-[100px]">
+			<YogaTile transition:name="yoga" />
+			<h3 class="absolute bottom-10">{yogaTitle}</h3>
+		</div>
+		<div class="relative h-[312px] w-[360px] -mt-[156px] -ml-[91px]">
+			<MinimalismTile transition:name="minimalism" />
+			<h3 class="absolute bottom-10">{minimalismTitle}</h3>
+		</div>
+	</section>
+</Layout>

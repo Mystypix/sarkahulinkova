@@ -1,0 +1,17 @@
+---
+import RichTextRenderer from '@caisy/rich-text-astro-renderer';
+
+const {background, color, subTitle, Tile, title} = Astro.props;
+--- 
+
+<section class="overflow-hidden h-screen" >
+    <div class="h-4/5 bg-cover bg-no-repeat bg-center" style=`background-image:url(${background})`>
+        <div class="h-full flex flex-col justify-center px-40">
+            <h1 class="font-title text-7xl mb-6">{title}</h1>
+            {subTitle && <h2 class="text-3xl font-thin leading-relaxed"><RichTextRenderer node={subTitle.json} /></h2>}
+        </div>
+    </div>
+    <div class=`relative h-1/5 bg-${color}`>
+        {Tile && <div class="absolute left-1/2 -ml-[180px] -top-[156px] h-[312px] w-[360px]"><Tile /></div>}
+    </div>
+</section>
