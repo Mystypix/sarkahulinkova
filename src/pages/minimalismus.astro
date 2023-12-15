@@ -1,9 +1,10 @@
 ---
 import Hero from "../components/Hero.astro";
+import MinimalismTile from "../components/tilles/MinimalismTile.astro";
 import Layout from "../layouts/Layout.astro";
 
 ---
 
 <Layout title='Minimalismus'>
-	<Hero background='bg-minimalism.jpg' title='Minimalismus' />
+	<Hero background='bg-minimalism.jpg' color="minimalism" Tile={MinimalismTile} title='Minimalismus' />
 </Layout>

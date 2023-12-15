@@ -6,6 +6,7 @@ import Hero from '../components/Hero.astro'
 import TherapyTile from '../components/tilles/TherapyTile.astro';
 import YogaTile from '../components/tilles/YogaTile.astro';
 import MinimalismTile from '../components/tilles/MinimalismTile.astro';
+import LogoTile from '../components/tilles/LogoTile.astro';
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -37,22 +38,22 @@ const {introText, mainTitle, minimalismTitle, therapyTitle, yogaTitle, } = gqlRe
 ---
 
 <Layout title='Uvod'>
-	<Hero background='bg-intro.jpg' subTitle={mainTitle} title='Šárka Hulinková' />
-	<section class="flex items-center justify-center h-[300px] mb-14">
+	<Hero background='bg-intro.jpg' color='intro' subTitle={mainTitle} Tile={LogoTile} title='Šárka Hulinková' />
+	<section class="flex items-center justify-center h-[300px] mb-14 text-2xl font-extralight">
 		<RichTextRenderer node={introText.json} />
 	</section>
 	<section class="flex justify-center pt-[156px]">
-		<div class="relative h-[312px] w-[360px] -mt-[156px]">
-			<TherapyTile transition:name="therapy" />
-			<h3 class="absolute bottom-10">{therapyTitle}</h3>
+		<div class="flex justify-center relative h-[314px] w-[362px] -mt-[156px] hover:scale-110 hover:z-10 transition-transform">
+			<a href="/terapie"><TherapyTile transition:name="therapy" /></a>
+			<h3 class="absolute bottom-10 w-[180px] text-center font-extralight text-xl">{therapyTitle}</h3>
 		</div>
-		<div class="relative h-[312px] w-[360px] -ml-[100px]">
-			<YogaTile transition:name="yoga" />
-			<h3 class="absolute bottom-10">{yogaTitle}</h3>
+		<div class="flex justify-center relative h-[314px] w-[362px] -ml-[91px] hover:scale-110 hover:z-10 transition-transform">
+			<a href="/joga"><YogaTile transition:name="yoga" /></a>
+			<h3 class="absolute bottom-10 w-[180px] text-center font-extralight text-xl">{yogaTitle}</h3>
 		</div>
-		<div class="relative h-[312px] w-[360px] -mt-[156px] -ml-[91px]">
-			<MinimalismTile transition:name="minimalism" />
-			<h3 class="absolute bottom-10">{minimalismTitle}</h3>
+		<div class="flex justify-center relative h-[314px] w-[362px] -mt-[156px] -ml-[91px] hover:scale-110 hover:z-10 transition-transform">
+			<a href="/minimalismus"><MinimalismTile transition:name="minimalism" /></a>
+			<h3 class="absolute bottom-10 w-[180px] text-center font-extralight text-xl">{minimalismTitle}</h3>
 		</div>
 	</section>
 </Layout>

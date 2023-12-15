@@ -1,9 +1,10 @@
 ---
 import Hero from "../components/Hero.astro";
+import YogaTile from "../components/tilles/YogaTile.astro";
 import Layout from "../layouts/Layout.astro";
 
 ---
 
 <Layout title='Joga'>
-	<Hero background='bg-yoga.jpg' title='Jóga a meditace' />
+	<Hero background='bg-yoga.jpg' color="yoga" Tile={YogaTile} title='Jóga a meditace' />
 </Layout>

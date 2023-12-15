@@ -7,6 +7,7 @@ export default {
     },
     extend: {
       colors: {
+        intro: "#E9E3D8",
         main: "#A48800",
         minimalism: "#BD9E90",
         therapy: "#9DD3CA",
@@ -15,4 +16,16 @@ export default {
     },
   },
   plugins: [],
+  safelist: [
+    "border-l-intro",
+    "border-r-intro",
+    "border-l-main",
+    "border-r-main",
+    "border-l-minimalism",
+    "border-r-minimalism",
+    "border-l-therapy",
+    "border-r-therapy",
+    "border-l-yoga",
+    "border-r-yoga",
+  ],
 };
