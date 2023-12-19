@@ -7,8 +7,8 @@ const {background, color, subTitle, Tile, title} = Astro.props;
 <section class="overflow-hidden h-screen" >
     <div class="h-full bg-cover bg-no-repeat bg-center" style=`background-image:url(${background})`>
         <div class="h-full flex flex-col justify-center px-40 pb-[20%]">
-            <h1 class="font-title text-7xl mb-6">{title}</h1>
-            {subTitle && <h2 class="text-3xl font-thin leading-relaxed"><RichTextRenderer node={subTitle.json} /></h2>}
+            <h1 class="font-title text-7xl mb-6 text-center xl:text-left">{title}</h1>
+            {subTitle && <h2 class="text-3xl font-thin leading-relaxed text-center xl:text-left"><RichTextRenderer node={subTitle.json} /></h2>}
         </div>
     </div>
     <div class=`absolute bottom-0 w-full min-h-[180px] h-1/5 bg-${color} border-t-[1px] border-main bg-opacity-70`>

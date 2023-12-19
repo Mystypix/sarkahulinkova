@@ -1,6 +1,8 @@
 ---
 import Tile from "./Tile.astro";
-
+const {title} = Astro.props;
 ---
 
-<Tile color="minimalism" />
+<Tile color="minimalism" title={title}>
+    <svg class=`${title ? 'w-[160px] -mt-[80px]' : 'w-[200px]'}` viewBox="0 0 50.271 46.567" xml:space="preserve" xmlns="http://www.w3.org/2000/svg"><g transform="matrix(1 0 0 .99913 -75.142 -82.742)" style="display:inline"><ellipse style="fill:none;stroke:#A48800;stroke-width:.2633;stroke-dasharray:none;stroke-opacity:1" cx="100.409" cy="85.725" rx="6.615" ry="2.779"/><ellipse style="fill:none;stroke:#A48800;stroke-width:.266354;stroke-dasharray:none;stroke-opacity:1" cx="100.277" cy="93.662" rx="10.979" ry="5.158"/><ellipse style="fill:none;stroke:#A48800;stroke-width:.263357;stroke-dasharray:none;stroke-opacity:1" cx="100.277" cy="105.569" rx="16.537" ry="6.747"/><ellipse style="fill:none;stroke:#A48800;stroke-width:.262456;stroke-dasharray:none;stroke-opacity:1" cx="100.277" cy="120.782" rx="19.183" ry="8.468"/><path style="fill:none;stroke:#A48800;stroke-width:.26617;stroke-dasharray:none;stroke-opacity:1" d="M75.142 129.289h50.27"/></g></svg>
+</Tile>

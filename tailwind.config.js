@@ -9,9 +9,9 @@ export default {
       colors: {
         intro: "#E9E3D8",
         main: "#A48800",
-        minimalism: "#BD9E90",
-        therapy: "#9DD3CA",
-        yoga: "#578ABC",
+        minimalism: "#E9E3D8",
+        therapy: "#E9F4E4",
+        yoga: "#9DD3CA",
       },
     },
   },
