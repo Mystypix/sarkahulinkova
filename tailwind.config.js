@@ -17,6 +17,7 @@ export default {
   },
   plugins: [],
   safelist: [
+      "fill",
     "border-l-intro",
     "border-r-intro",
     "border-l-main",

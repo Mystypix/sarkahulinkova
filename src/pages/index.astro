@@ -3,10 +3,10 @@ import RichTextRenderer from '@caisy/rich-text-astro-renderer';
 import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
 import Hero from '../components/Hero.astro'
-import TherapyTile from '../components/tilles/TherapyTile.astro';
-import YogaTile from '../components/tilles/YogaTile.astro';
-import MinimalismTile from '../components/tilles/MinimalismTile.astro';
-import LogoTile from '../components/tilles/LogoTile.astro';
+import TherapyTile from '../components/tiles/TherapyTile.astro';
+import YogaTile from '../components/tiles/YogaTile.astro';
+import MinimalismTile from '../components/tiles/MinimalismTile.astro';
+import LogoTile from '../components/tiles/LogoTile.astro';
 import Button from '../components/Button.astro';
 
 const client = new GraphQLClient(
@@ -39,19 +39,19 @@ const {introText, mainTitle, minimalismTitle, therapyTitle, yogaTitle, } = gqlRe
 ---
 
 <Layout title='Uvod'>
-	<Hero background='bg-intro.jpg' color='intro' subTitle={mainTitle} Tile={LogoTile} title='Šárka Hulinková' />
-	<section class="flex flex-col space-y-20 items-center justify-center h-[300px] mb-14 text-2xl font-extralight">
+	<Hero background='bg-intro.jpg' color='intro-opacity' subTitle={mainTitle} Tile={LogoTile} title='Šárka Hulinková' />
+	<section class="section">
 		<RichTextRenderer node={introText.json} />
 		<Button text="Chci konzultaci zdarma" />
 	</section>
-	<section class="flex justify-center pt-[156px] pb-20">
-		<div class="flex justify-center relative h-[314px] w-[362px] -mt-[156px] hover:scale-110 hover:z-10 transition-transform">
+	<section class="section signpost">
+		<div class="signpostItem">
 			<a href="/terapie"><TherapyTile transition:name="therapy" title={therapyTitle} /></a>
 		</div>
-		<div class="flex justify-center relative h-[314px] w-[362px] -ml-[91px] hover:scale-110 hover:z-10 transition-transform">
+		<div class="signpostItem">
 			<a href="/joga"><YogaTile transition:name="yoga" title={yogaTitle} /></a>
 		</div>
-		<div class="flex justify-center relative h-[314px] w-[362px] -mt-[156px] -ml-[91px] hover:scale-110 hover:z-10 transition-transform">
+		<div class="signpostItem">
 			<a href="/minimalismus"><MinimalismTile transition:name="minimalism" title={minimalismTitle} /></a>
 		</div>
 	</section>

@@ -1,10 +1,63 @@
 ---
-import Hero from "../components/Hero.astro";
-import YogaTile from "../components/tilles/YogaTile.astro";
+import RichTextRenderer from '@caisy/rich-text-astro-renderer';
+import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
+import Hero from '../components/Hero.astro'
+import YogaTile from '../components/tiles/YogaTile.astro';
 
+const client = new GraphQLClient(
+	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
+	{
+		headers: {
+			'x-caisy-apikey': import.meta.env.CAISY_API_KEY
+		}
+	}
+);
+const gqlResponse = await client.request(
+	gql`
+		query yoga {
+			Yoga(id: "512bfbae-e37a-4eea-99dd-47b3a886658b") {
+				introTitle
+				description {
+					json
+				}
+				howAndWhoTitle
+				howAndWhoText {
+					json
+				}
+				yogaAndMeTitle
+				yogaAndMeText {
+					json
+				}
+				referenceTitle
+			}
+		}
+	`,
+);
+
+const {introTitle, description, howAndWhoTitle, howAndWhoText, yogaAndMeTitle, yogaAndMeText, referenceTitle} = gqlResponse?.Yoga
 ---
-
 <Layout title='Joga'>
-	<Hero background='bg-yoga.jpg' color="yoga" Tile={YogaTile} title='Jóga a meditace' />
+	<Hero background='bg-yoga.jpg' color="yoga-opacity" subTitle={introTitle} Tile={YogaTile} title='Jóga a meditace' />
+	<section class="section">
+		<div class="sectionContent">
+			<p class="sectionText"><RichTextRenderer node={description.json} /></p>
+		</div>
+	</section>
+	<section class="section">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">{howAndWhoTitle}</h2>
+			<p class="sectionText"><RichTextRenderer node={howAndWhoText.json} /></p>
+		</div>
+	</section>
+	<section class="section">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">{yogaAndMeTitle}</h2>
+			<p class="sectionText"><RichTextRenderer node={yogaAndMeText.json} /></p>
+		</div>
+	</section>
+	<section class="section">
+		<h2 class="sectionTitle">{referenceTitle}</h2>
+				<!--<p><RichTextRenderer node={problems.json} /></p>-->
+	</section>
 </Layout>

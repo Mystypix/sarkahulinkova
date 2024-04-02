@@ -3,7 +3,7 @@ import RichTextRenderer from '@caisy/rich-text-astro-renderer';
 import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
 import Hero from '../components/Hero.astro'
-import TherapyTile from '../components/tilles/TherapyTile.astro';
+import TherapyTile from '../components/tiles/TherapyTile.astro';
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -40,16 +40,22 @@ const {introText, problems, problemsTitle, subTitle, workProcess, workProcessTit
 ---
 
 <Layout title='Terapie'>
-	<Hero background='bg-therapy.jpg' color='therapy' subTitle={subTitle} Tile={TherapyTile} title='Terapie' />
-	<section class="min-h-[300px] bg-therapy flex items-center justify-center">
-		<p><RichTextRenderer node={introText.json} /></p>
+	<Hero background='bg-therapy.jpg' color='therapy-opacity' subTitle={subTitle} Tile={TherapyTile} title='Terapie' />
+	<section class="section">
+		<div class="sectionContent">
+			<p><RichTextRenderer node={introText.json} /></p>
+		</div>
 	</section>
-	<section>
-		<h2>{problemsTitle}</h2>
-		<p><RichTextRenderer node={problems.json} /></p>
+	<section class="section">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">{problemsTitle}</h2>
+			<p><RichTextRenderer node={problems.json} /></p>
+		</div>
 	</section>
-	<section>
-		<h2>{workProcessTitle}</h2>
-		<p><RichTextRenderer node={workProcess.json} /></p>
+	<section class="section">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">{workProcessTitle}</h2>
+			<p><RichTextRenderer node={workProcess.json} /></p>
+		</div>
 	</section>
 </Layout>
