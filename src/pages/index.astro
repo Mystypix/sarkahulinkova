@@ -8,6 +8,7 @@ import YogaTile from '../components/tiles/YogaTile.astro';
 import MinimalismTile from '../components/tiles/MinimalismTile.astro';
 import LogoTile from '../components/tiles/LogoTile.astro';
 import Button from '../components/Button.astro';
+import introTilesBg from '../assets/intro-tiles.jpg';
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -38,13 +39,13 @@ const gqlResponse = await client.request(
 const {introText, mainTitle, minimalismTitle, therapyTitle, yogaTitle, } = gqlResponse?.Home
 ---
 
-<Layout title='Uvod'>
-	<Hero background='bg-intro.jpg' color='intro-opacity' subTitle={mainTitle} Tile={LogoTile} title='Šárka Hulinková' />
+<Layout title='Simply bee - Úvod'>
+	<Hero background='bg-intro.jpg' color='intro-opacity' subTitle={mainTitle} Tile={LogoTile} title='Šárka Hulinková' type="intro" />
 	<section class="section">
 		<RichTextRenderer node={introText.json} />
 		<Button text="Chci konzultaci zdarma" />
 	</section>
-	<section class="section signpost">
+	<section class="section signpost section--intro">
 		<div class="signpostItem">
 			<a href="/terapie"><TherapyTile transition:name="therapy" title={therapyTitle} /></a>
 		</div>

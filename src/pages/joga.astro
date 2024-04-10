@@ -4,6 +4,10 @@ import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
 import Hero from '../components/Hero.astro'
 import YogaTile from '../components/tiles/YogaTile.astro';
+import { Image } from 'astro:assets';
+import joga01 from '../assets/joga-01.png';
+import joga02 from '../assets/joga-02.png';
+import joga03 from '../assets/joga-03.png';
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -17,7 +21,9 @@ const gqlResponse = await client.request(
 	gql`
 		query yoga {
 			Yoga(id: "512bfbae-e37a-4eea-99dd-47b3a886658b") {
-				introTitle
+				subTitle {
+					json
+				}
 				description {
 					json
 				}
@@ -35,28 +41,38 @@ const gqlResponse = await client.request(
 	`,
 );
 
-const {introTitle, description, howAndWhoTitle, howAndWhoText, yogaAndMeTitle, yogaAndMeText, referenceTitle} = gqlResponse?.Yoga
+const {subTitle, description, howAndWhoTitle, howAndWhoText, yogaAndMeTitle, yogaAndMeText, referenceTitle} = gqlResponse?.Yoga
+console.log('wtf', subTitle)
 ---
-<Layout title='Joga'>
-	<Hero background='bg-yoga.jpg' color="yoga-opacity" subTitle={introTitle} Tile={YogaTile} title='Jóga a meditace' />
+<Layout title='Simply bee - Jóga'>
+	<Hero background='bg-yoga.jpg' color="yoga-opacity" subTitle={subTitle} Tile={YogaTile} title='Jóga a meditace' type="yoga" />
 	<section class="section">
-		<div class="sectionContent">
-			<p class="sectionText"><RichTextRenderer node={description.json} /></p>
+		<div class="sectionContainer">
+			<Image class="sectionImage" src={joga01} alt="Obrazek jogy 01" />
+			<div class="sectionContent">
+				<p class="sectionText"><RichTextRenderer node={description.json} /></p>
+			</div>
+		</div>
+	</section>
+	<section class="section section--odd section--yoga">
+		<div class="sectionContainer">
+			<div class="sectionContent">
+				<h2 class="sectionTitle">{howAndWhoTitle}</h2>
+				<p class="sectionText"><RichTextRenderer node={howAndWhoText.json} /></p>
+			</div>
+			<Image class="sectionImage" src={joga02} alt="Obrazek jogy 02" />
 		</div>
 	</section>
 	<section class="section">
-		<div class="sectionContent">
-			<h2 class="sectionTitle">{howAndWhoTitle}</h2>
-			<p class="sectionText"><RichTextRenderer node={howAndWhoText.json} /></p>
+		<div class="sectionContainer">
+			<Image class="sectionImage" src={joga03} alt="Obrazek jogy 03" />
+			<div class="sectionContent">
+				<h2 class="sectionTitle">{yogaAndMeTitle}</h2>
+				<p class="sectionText"><RichTextRenderer node={yogaAndMeText.json} /></p>
+			</div>
 		</div>
 	</section>
-	<section class="section">
-		<div class="sectionContent">
-			<h2 class="sectionTitle">{yogaAndMeTitle}</h2>
-			<p class="sectionText"><RichTextRenderer node={yogaAndMeText.json} /></p>
-		</div>
-	</section>
-	<section class="section">
+	<section class="section  section--odd section--yoga">
 		<h2 class="sectionTitle">{referenceTitle}</h2>
 				<!--<p><RichTextRenderer node={problems.json} /></p>-->
 	</section>

@@ -4,6 +4,10 @@ import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
 import Hero from '../components/Hero.astro'
 import TherapyTile from '../components/tiles/TherapyTile.astro';
+// import "@glidejs/glide/dist/css/glide.core.css/glide.core.min.css";
+// import Glide from '@glidejs/glide'
+
+// new Glide('.glide').mount()
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -16,37 +20,59 @@ const client = new GraphQLClient(
 const gqlResponse = await client.request(
 	gql`
 		query therapy {
-			Therapy {
-				introText {
-					json
-				}
-				problems {
-					json
-				}
+			allTherapyReference {
+    			edges {
+      				node {
+        				id
+        				name
+        				text {
+          					json
+        				}
+      				}
+    			}
+  			}
+  			Therapy {
+    			introText {
+      				json
+    			}
+    			problems {
+      				json
+    			}
 				problemsTitle
 				subTitle {
-					json
+				 	json
 				}
+				therapyAndMeText {
+				  	json
+				}
+				therapyAndMeTitle
+				thoughtsText {
+				  	json
+				}
+				thoughtsTitle
 				workProcess {
-					json
+				  	json
 				}
 				workProcessTitle
-			}
-		}
-	`,
+  			}
+  		}
+  	`,
 );
 
+console.log('sadfsadfds', gqlResponse)
+
 const {introText, problems, problemsTitle, subTitle, workProcess, workProcessTitle} = gqlResponse?.Therapy
+const {edges} = gqlResponse?.allTherapyReference
 ---
 
-<Layout title='Terapie'>
-	<Hero background='bg-therapy.jpg' color='therapy-opacity' subTitle={subTitle} Tile={TherapyTile} title='Terapie' />
+<Layout title='Simply bee - Terapie'>
+	<Hero background='bg-therapy.jpg' color='therapy-opacity' subTitle={subTitle} Tile={TherapyTile} title='Terapie' type="therapy" />
 	<section class="section">
 		<div class="sectionContent">
 			<p><RichTextRenderer node={introText.json} /></p>
 		</div>
 	</section>
-	<section class="section">
+	<section class="section section--odd section--therapy">
 		<div class="sectionContent">
 			<h2 class="sectionTitle">{problemsTitle}</h2>
 			<p><RichTextRenderer node={problems.json} /></p>
@@ -56,6 +82,23 @@ const {introText, problems, problemsTitle, subTitle, workProcess, workProcessTit
 		<div class="sectionContent">
 			<h2 class="sectionTitle">{workProcessTitle}</h2>
 			<p><RichTextRenderer node={workProcess.json} /></p>
+		</div>
+	</section>
+	<section class="section section--odd section--therapy">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">Reference</h2>
+			<div class="glider">
+				<div class="glide__track" data-glide-el="track">
+					<ul class="glide__slides">
+						{edges.map(({node}) => {
+							return (<li class="glide__slide">
+								<h4>{node.name}</h4>
+								<p><RichTextRenderer node={node.text.json} /></p>
+							</li>)
+						})}
+					</ul>
+				</div>
+			</div>
 		</div>
 	</section>
 </Layout>

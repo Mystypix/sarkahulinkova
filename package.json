@@ -11,14 +11,13 @@
   },
   "dependencies": {
     "@astrojs/check": "^0.3.2",
-    "@astrojs/tailwind": "^5.0.3",
     "@caisy/rich-text-astro-renderer": "^1.0.2",
+    "@glidejs/glide": "^3.6.0",
     "astro": "^4.0.4",
     "graphql": "^16.8.1",
     "graphql-request": "^6.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "tailwindcss": "^3.3.6",
     "typescript": "^5.3.3"
   }
 }

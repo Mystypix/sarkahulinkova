@@ -1,10 +1,10 @@
 ---
 import RichTextRenderer from '@caisy/rich-text-astro-renderer';
 
-const {background, color, subTitle, Tile, title} = Astro.props;
+const {background, color, subTitle, Tile, title, type} = Astro.props;
 --- 
 
-<section class="hero" >
+<section class=`hero hero--${type}` >
     <div class="heroContent" style=`background-image:url(${background})`>
         <div class="">
             <h1 class="heroTitle">{title}</h1>

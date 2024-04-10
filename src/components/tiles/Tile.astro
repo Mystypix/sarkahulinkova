@@ -5,7 +5,7 @@ const fill = color ? `var(--color-${color})` : 'none';
 ---
 
 <div class="tile">
-    <svg height="260" viewBox="0 0 79.375 68.792" xmlns="http://www.w3.org/2000/svg"><path style=`fill:${fill};stroke:var(--color-main);stroke-width:.264583` d="M91.013 103.587 76.468 128.78h-29.09l-14.546-25.193 14.546-25.193h29.09z" transform="matrix(1.35716 0 0 1.35816 -44.351 -106.292)"/></svg>
+    <svg height="230" viewBox="0 0 79.375 68.792" xmlns="http://www.w3.org/2000/svg"><path style=`fill:${fill};stroke:var(--color-main);stroke-width:.264583` d="M91.013 103.587 76.468 128.78h-29.09l-14.546-25.193 14.546-25.193h29.09z" transform="matrix(1.35716 0 0 1.35816 -44.351 -106.292)"/></svg>
     {ImageComponent && <div class="tileImg"><ImageComponent  /></div>}
     <div class='tileContent'><slot /></div>
     {title && <h3 class="tileText">{title}</h3>}
