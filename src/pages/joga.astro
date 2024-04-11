@@ -20,6 +20,16 @@ const client = new GraphQLClient(
 const gqlResponse = await client.request(
 	gql`
 		query yoga {
+			allYogaReference {
+    			edges {
+      				node {
+        				name
+        				text {
+          					json
+        				}
+      				}
+    			}
+  			}
 			Yoga(id: "512bfbae-e37a-4eea-99dd-47b3a886658b") {
 				subTitle {
 					json
@@ -42,7 +52,8 @@ const gqlResponse = await client.request(
 );
 
 const {subTitle, description, howAndWhoTitle, howAndWhoText, yogaAndMeTitle, yogaAndMeText, referenceTitle} = gqlResponse?.Yoga
-console.log('wtf', subTitle)
+const {edges} = gqlResponse?.allYogaReference
+
 ---
 <Layout title='Simply bee - Jóga'>
 	<Hero background='bg-yoga.jpg' color="yoga-opacity" subTitle={subTitle} Tile={YogaTile} title='Jóga a meditace' type="yoga" />
@@ -72,8 +83,49 @@ console.log('wtf', subTitle)
 			</div>
 		</div>
 	</section>
-	<section class="section  section--odd section--yoga">
-		<h2 class="sectionTitle">{referenceTitle}</h2>
-				<!--<p><RichTextRenderer node={problems.json} /></p>-->
+	<section class="section section--odd section--yoga">
+		<div class="sectionContent">
+			<h2 class="sectionTitle">Reference</h2>
+			<div class="swiper">
+				<div class="swiper-wrapper">
+					{edges.map(({node}) => {
+						return (<li class="swiper-slide">
+							<p><RichTextRenderer node={node.text.json} /></p>
+							<p class="referenceName">{node.name}</p>
+						</li>)
+					})}
+				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
+			</div>
+		</div>
 	</section>
 </Layout>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script is:inline>new Swiper('.swiper', {
+	autoplay: {
+		delay: 5000,
+		pauseOnMouseEnter: true,
+	},
+	loop: true,
+	pagination: {
+		enabled: false,
+	},
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+	centeredSlides: true,
+	effect: 'cards',
+})</script>
+<style>
+	:root {
+		--swiper-navigation-size: 30px;
+		--swiper-navigation-top-offset: 50%;
+		--swiper-navigation-sides-offset: -80px;
+		--swiper-navigation-color: var(--color-main);
+	}
+</style>

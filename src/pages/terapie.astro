@@ -4,10 +4,6 @@ import { gql, GraphQLClient } from 'graphql-request';
 import Layout from "../layouts/Layout.astro";
 import Hero from '../components/Hero.astro'
 import TherapyTile from '../components/tiles/TherapyTile.astro';
-// import "@glidejs/glide/dist/css/glide.core.css/glide.core.min.css";
-// import Glide from '@glidejs/glide'
-
-// new Glide('.glide').mount()
 
 const client = new GraphQLClient(
 	`https://cloud.caisy.io/api/v3/e/${import.meta.env.CAISY_PROJECT_ID}/graphql`,
@@ -59,8 +55,6 @@ const gqlResponse = await client.request(
   	`,
 );
 
-console.log('sadfsadfds', gqlResponse)
-
 const {introText, problems, problemsTitle, subTitle, workProcess, workProcessTitle} = gqlResponse?.Therapy
 const {edges} = gqlResponse?.allTherapyReference
 ---
@@ -87,18 +81,46 @@ const {edges} = gqlResponse?.allTherapyReference
 	<section class="section section--odd section--therapy">
 		<div class="sectionContent">
 			<h2 class="sectionTitle">Reference</h2>
-			<div class="glider">
-				<div class="glide__track" data-glide-el="track">
-					<ul class="glide__slides">
-						{edges.map(({node}) => {
-							return (<li class="glide__slide">
-								<h4>{node.name}</h4>
-								<p><RichTextRenderer node={node.text.json} /></p>
-							</li>)
-						})}
-					</ul>
+			<div class="swiper">
+				<div class="swiper-wrapper">
+					{edges.map(({node}) => {
+						return (<li class="swiper-slide">
+							<p><RichTextRenderer node={node.text.json} /></p>
+							<p class="referenceName">{node.name}</p>
+						</li>)
+					})}
 				</div>
+				<div class="swiper-pagination"></div>
+				<div class="swiper-button-prev"></div>
+				<div class="swiper-button-next"></div>
 			</div>
 		</div>
 	</section>
 </Layout>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+<script is:inline src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script is:inline>new Swiper('.swiper', {
+	autoplay: {
+		delay: 5000,
+		pauseOnMouseEnter: true,
+	},
+	loop: true,
+	pagination: {
+		enabled: false,
+	},
+	navigation: {
+		nextEl: '.swiper-button-next',
+		prevEl: '.swiper-button-prev',
+	},
+	centeredSlides: true,
+	effect: 'cards',
+})</script>
+<style>
+	:root {
+		--swiper-navigation-size: 30px;
+		--swiper-navigation-top-offset: 50%;
+		--swiper-navigation-sides-offset: -80px;
+		--swiper-navigation-color: var(--color-main);
+	}
+</style>

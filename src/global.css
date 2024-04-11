@@ -264,3 +264,50 @@ a:visited {
   transform: scale(1.1);
   z-index: 1;
 }
+
+.linkButton {
+  display: inline-block;
+  border: 1px solid var(--color-main);
+  padding: 0 15px;
+  background: transparent;
+  color: var(--color-main);
+  line-height: 40px;
+  font-weight: 700;
+  transition: all .25s;
+}
+
+.linkButton:hover {
+  background: var(--color-main);
+  color: var(--color-text);
+}
+
+.intro {
+  align-items: center;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.introText {
+  font-size: 24px;
+  line-height: 36px;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.swiper {
+  padding: 40px;
+  width: 100%;
+}
+
+.swiper-slide {
+  border: 1px solid var(--color-main);
+  padding: 20px;
+  background: #fff;
+  height: auto !important;
+}
+
+.referenceName {
+  margin-top: 10px;
+  text-align: right;
+  font-weight: 700;
+}
